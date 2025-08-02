@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Divya's Celestial Hour</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: url('https://i.ibb.co/6RWq2L62/jeremy-thomas-E0-AHds-ENm-Dg-unsplash.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+    }
+
+    .star {
+      position: absolute;
+      border-radius: 50%;
+      cursor: pointer;
+      background: white;
+      width: 12px;
+      height: 12px;
+      box-shadow: 0 0 10px #fff;
+      animation: glow 2s infinite alternate;
+      z-index: 2;
+    }
+
+    @keyframes glow {
+      from { box-shadow: 0 0 10px #fff; }
+      to { box-shadow: 0 0 25px #ffd700, 0 0 35px #fff; }
+    }
+
+    .star:hover {
+      transform: scale(1.4);
+    }
+
+    .info-box {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 20px;
+      border: 1px solid #fff;
+      border-radius: 15px;
+      max-width: 320px;
+      z-index: 10;
+      display: none;
+    }
+
+    .info-box h2 {
+      margin: 0 0 10px 0;
+      font-size: 18px;
+      color: #ffd700;
+    }
+
+    .divya-note {
+      position: absolute;
+      top: 80px;
+      right: 10px;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 12px;
+      font-size: 13px;
+      border-radius: 10px;
+      max-width: 250px;
+      backdrop-filter: blur(5px);
+      z-index: 3;
+    }
+
+    .title {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 32px;
+      font-weight: bold;
+      color: #ffffff;
+      text-shadow: 0 0 5px #fff, 0 0 15px #00f0ff, 0 0 30px #9f00ff;
+      animation: pulse 3s ease-in-out infinite;
+      z-index: 4;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        text-shadow: 0 0 5px #fff, 0 0 15px #00f0ff, 0 0 30px #9f00ff;
+      }
+      50% {
+        text-shadow: 0 0 10px #fff, 0 0 25px #00f0ff, 0 0 40px #ff00ff;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="title">Divya's Celestial Hour</div>
+
+  <div class="divya-note">
+    <strong>Divya,</strong><br>
+    this sky remembers you.<br>
+    Each star here!! It's just a way of showing you that even in a galaxy of billions,<br>
+    you still shine in ways no telescope can measure.<br>
+    In every star, there’s a piece of your magic. ✨
+  </div>
+
+  <div class="info-box" id="infoBox">
+    <h2 id="starName">Star Name</h2>
+    <p id="starDetails">Star details will appear here.</p>
+  </div>
+
+  <script>
+    const stars = [
+      {
+        name: "Sirius",
+        coords: "RA: 06h 45m 08.9s, DEC: -16° 42′ 58″",
+        description: "The brightest star in the night sky, just like your presence. You're always glowing quietly day by day and the sky feels different without you.",
+        x: "20%",
+        y: "30%"
+      },
+      {
+        name: "Polaris",
+        coords: "RA: 02h 31m 49.1s, DEC: +89° 15′ 51″",
+        description: "The North Star. You don't seek attention, but you guide quietly. You're the Polaris in our storms, the stillness when everything else moves. Your absence affects a lot.",
+        x: "80%",
+        y: "10%"
+      },
+      {
+        name: "Andromeda",
+        coords: "Galaxy center approx. RA: 00h 42m 44.3s, DEC: +41° 16′ 9″",
+        description: "The closest spiral galaxy. Sometimes you might feel distant from others. But you're a galaxy ahead — always expanding, always pulling people into your orbit.",
+        x: "65%",
+        y: "60%"
+      },
+      {
+        name: "Nebula",
+        coords: "Diffuse collection of dust and gas",
+        description: "Creation and chaos — your overthinking mind and your magic. Inside you, something always begins. A laugh. A friendship. A healing. You're a nebula — a beginning wrapped in softness.",
+        x: "40%",
+        y: "80%"
+      },
+      {
+        name: "Orion",
+        coords: "RA: 05h 35m 17.3s, DEC: −05° 23′ 28″",
+        description: "The Hunter. You walk the world with innocence — but don’t mistake that for weakness. You're Orion: a seeker of meaning, a keeper of emotions.",
+        x: "55%",
+        y: "35%"
+      },
+      {
+        name: "Saturn",
+        coords: "RA: ~21h in 2025",
+        description: "With rings of elegance and silence. You build walls — overthinking, hesitating. But like Saturn, what protects you also makes you beautiful.",
+        x: "30%",
+        y: "50%"
+      },
+      {
+        name: "Lyra",
+        coords: "RA: 18h 36m 56s, DEC: +36° 45′ 18″",
+        description: "The Harp Constellation. In Greek myth, it’s Orpheus’s Harp. Your voice — soft, unsure — carries music no one hears. The starlight that sings without asking permission.",
+        x: "75%",
+        y: "75%"
+      }
+    ];
+
+    const infoBox = document.getElementById("infoBox");
+    const starName = document.getElementById("starName");
+    const starDetails = document.getElementById("starDetails");
+
+    stars.forEach(star => {
+      const starDiv = document.createElement("div");
+      starDiv.classList.add("star");
+      starDiv.style.left = star.x;
+      starDiv.style.top = star.y;
+
+      starDiv.addEventListener("click", () => {
+        starName.innerText = star.name;
+        starDetails.innerHTML = `<strong>Coordinates:</strong> ${star.coords}<br><br>${star.description}`;
+        infoBox.style.display = "block";
+      });
+
+      document.body.appendChild(starDiv);
+    });
+  </script>
+
+</body>
+</html>
+
